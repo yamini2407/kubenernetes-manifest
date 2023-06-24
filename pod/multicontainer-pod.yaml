@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: add-data-container
+      image: alpine  
+      command: ["/bin/sh"]
+      args: ["-c", "while true; do date >> /mnt/index.html;sleep 10; done"]
+      volumeMounts:
+        - name: nginx-pod-data
+          mountPath: /mnt
+    - name: serve-data
+      image: nginx
+      ports:
+        - containerPort: 80
+          hostPort: 8090
+      volumeMounts:
+        - name: nginx-pod-data
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: nginx-pod-data
+      emptyDir: {}
+

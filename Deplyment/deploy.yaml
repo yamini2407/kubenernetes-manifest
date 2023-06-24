@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: replicasnginx--pod
+spec:
+# Deployment info
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  replicas: 3
+  selector:
+    # matchLabels:
+    #   app: nginx
+    #   env: dev
+    #   version: v1
+    matchExpressions:
+      - {key: app, operator: In, values: ["nginx","alpine"] }
+      - {key: env, operator: NotIn, values: ["pro","qa"]}
+      - {key: version, operator: Exists}
+      - {key: descrition, operator: DoesNotExist}
+# pod related infor written inside template   
+  template:
+    metadata: 
+      labels:
+        app: nginx
+        env: dev
+        version: v1
+
+    spec: 
+      containers:
+        - name: nginx-container
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-pod-data
+              mountPath: /var/www/html
+      volumes:
+       - name: nginx-pod-data
+         emptyDir: {}
+
+        
+      
+   

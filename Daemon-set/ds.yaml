@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-ds
+  labels: 
+    ds-version: v.1.0
+spec: 
+  strategy:
+    # rollingUpdate:
+    #   maxSurge: 0
+    #   maxUnavalable: 1
+    # type: RollingUpdate
+    type: OnDelete
+    
+  selector: 
+    matchExpressions:
+    - {key: app, operator: In, values: ["nginx"]}
+    - {key: version, operator: DoesNotExist}
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: dev
+    spec: 
+      containers:
+        - name: nginx-ds-container
+          image: nginx
+          ports:
+            - containerPort: 80
+              hostPort: 8090
+              protocol: TCP
+          volumeMounts:
+            - name: nginx-data-ds
+              mountPath: /var/www/html
+      volumes:
+        - name: nginx-data-ds
+          emptyDir: {}
+          

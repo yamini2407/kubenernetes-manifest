@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-job
+spec: 
+  ttlSecondsAfterFinished: 100
+  template:
+    metadata:
+      name: nginx-job
+    spec:
+      containers:
+        - name: alpine
+          image: alpine
+          command: ["/bin/sh"]
+          args: ["-c", "ls -l /"]
+      restartPolicy: OnFailure
+        
+
+           
+
