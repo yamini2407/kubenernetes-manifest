@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cj-demo
+spec:
+  successfulJobsHistoryLimit: 2 # show only recent 2 successfull jobs
+  failedJobsHistoryLimit: 1 # show only recent 1 failed job
+  schedule: "*/2 * * * *"  # minuts hours days month day_of_week
+  jobTemplate:
+    
+    spec:
+      template:
+        metadata:
+          name: nginx-job
+        spec:
+          containers:
+            - name: alpine
+              image: alpine
+              command: ["/bin/sh"]
+              args: ["-c", "ls -l /"]
+          restartPolicy: OnFailure
