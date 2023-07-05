@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-pod
+spec:
+  containers:
+    - name: add-data-container
+      image: alpine  
+      command: ["/bin/sh"]
+      args: ["-c", "while true; do date >> /var/yamini/index.html;sleep 10; done"]
+      volumeMounts:
+        - name: hostpath-vol
+          mountPath: /var/yamini/
+    - name: serve-data
+      image: nginx
+      ports:
+        - containerPort: 80
+          hostPort: 8090
+     
+      volumeMounts:
+        - name: hostpath-vol
+          mountPath: /usr/share/nginx/html/ # inside container
+  volumes:
+    - name: hostpath-vol
+      hostPath:
+        path: /var/yamini
+        type: Directory #DirectoryOrCreateDirectory
+    
+  
