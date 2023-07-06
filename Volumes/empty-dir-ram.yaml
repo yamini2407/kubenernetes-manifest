@@ -13,6 +13,6 @@ spec:
           mountPath: /usr/share/nginx/html/ # /var/www/html/
   volumes:
     - name: empty-volume-ram
-      emptyDir:  
-        medium: Memory # it will create in memory (RAM).
-        sizeLimit: 300Mi # give RAM size to utilize.
+      emptyDir: {}
+        # medium: Memory # it will create in memory (RAM).
+        # sizeLimit: 300Mi # give RAM size to utilize.

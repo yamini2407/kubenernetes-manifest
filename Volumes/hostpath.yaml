@@ -23,7 +23,7 @@ spec:
   volumes:
     - name: hostpath-vol
       hostPath:
-        path: /var/yamini
-        type: Directory #DirectoryOrCreateDirectory
+        path: /var/yamini # path on node (hostmachine, vm)
+        type: Directory #DirectoryOrCreate
     
   
