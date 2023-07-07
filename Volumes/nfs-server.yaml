@@ -16,5 +16,5 @@ spec:
   volumes:
     - name: nfs-server
       nfs:
-        server: 192.168.0.134
-        path: /nfs
+        server: 192.168.0.134 #other node server Ip address
+        path: /nfs 

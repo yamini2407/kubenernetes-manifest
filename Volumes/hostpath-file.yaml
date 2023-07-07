@@ -21,4 +21,4 @@ spec:
     - name: hp-test-file
       hostPath:
         path: /var/yamini/home.html   
-        type: FileOrCreate  # if type File--> will utizile the file but not create, if type: FileOrCreate--> it create if file doesnt exist
+        type: FileOrCreate  # if type is File-->It will utilize the file but will not create, if type: FileOrCreate--> it creates if the file doesnt exist
