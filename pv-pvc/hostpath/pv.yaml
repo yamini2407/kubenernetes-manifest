@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-hostpath
+spec:
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: hostpath   #this parameter is used to bind the pvc
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /mnt/pv-data
+    type: DirectoryOrCreate

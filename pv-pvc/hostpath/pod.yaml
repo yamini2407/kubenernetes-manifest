@@ -1,0 +1,21 @@
+# add this file in /etc/kubernetes/manifests ----> then it will behave like static pod
+# cp static-pod.yaml /etc/kubernetes/manifests
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: nginx-pod
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: nginx-pod-data
+          mountPath: /usr/share/nginx/html/
+  volumes:
+    - name: nginx-pod-data
+      persistentVolumeClaim:
+        claimName: pvc-hostpath
+
