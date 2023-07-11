@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-nfs
+spec:
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs   #this parameter is used to bind the pvc
+  accessModes:
+    - ReadOnlyMany
+  capacity:
+    storage: 2Gi
+  nfs:
+    server: 192.168.0.165
+    path: /pvdata
+    readOnly: true
