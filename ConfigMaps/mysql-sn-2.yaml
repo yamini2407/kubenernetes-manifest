@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqlx-pod
+spec:
+# Deployment info
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+  
+    matchExpressions:
+      - {key: app, operator: In, values: ["mysql","alpine"] }
+      - {key: env, operator: NotIn, values: ["pro","qa"]}
+# pod related infor written inside template   
+  template:
+    metadata: 
+      labels:
+        app: mysql
+        env: dev
+        version: v1
+
+    spec: 
+      containers:
+        - name: mysql-server
+          image: mysql
+          envFrom:
+            - configMapRef:
+                name: mysql-cm
+           
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-pod-data
+              mountPath: /var/lib/mysql
+      volumes:
+       - name: mysql-pod-data
+         emptyDir: {}
+
+        
+      
+   

@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-hostpath1
+spec:
+  storageClassName: sts-hostpath   #this parameter is used to bind the pvc
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /mnt/pv-data1
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-hostpath2
+spec:
+  storageClassName: sts-hostpath   #this parameter is used to bind the pvc
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /mnt/pv-data2
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-hostpath3
+spec:
+  storageClassName: sts-hostpath   #this parameter is used to bind the pvc
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /mnt/pv-data3
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-hostpath4
+spec:
+  storageClassName: sts-hostpath   #this parameter is used to bind the pvc
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /mnt/pv-data4
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-hostpath5
+spec:
+  storageClassName: sts-hostpath   #this parameter is used to bind the pvc
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: /mnt/pv-data5
+    type: DirectoryOrCreate
