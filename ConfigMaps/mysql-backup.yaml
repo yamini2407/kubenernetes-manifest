@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mysql-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: mysql-db-backup
+          image: mysql
+          command: ["/bin/bash","-c","mysqldump -hmysql-svc -uroot -proot1234 --all-databases > /mnt/mysql-backup-data.sh"]
+          volumeMounts:
+            - name: mysql-vol
+              mountPath: /mnt
+          ports:
+            - containerPort: 3306
+      restartPolicy: OnFailure
+      volumes:
+        - name: mysql-vol
+          hostPath:
+            path: /mnt/mysql-data
+            type: DirectoryOrCreate
+        

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: mysql-cm-backup
+data:
+  mysql-backup-script.sh: |
+    !#/bin/bash
+    echo "mysql backup initializing"
+    mysqldump -hmysql-svc -uroot -proot1234 --all-databases > /mnt/mysql-backup-data.sh
+    echo "backup has completed"
+immutable: true

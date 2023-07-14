@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mysql-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: mysql-db-backup
+          image: mysql
+          command: ["/bin/bash","-c","bash /tmp/backup-script.sh"]
+          volumeMounts:
+            - name: mysql-vol
+              mountPath: /mnt
+            - name: mysql-backup-script
+              mountPath: /tmp
+          ports:
+            - containerPort: 3306
+      restartPolicy: OnFailure
+      volumes:
+        - name: mysql-vol
+          hostPath:
+            path: /mnt/mysql-data
+            type: DirectoryOrCreate
+        - name: mysql-backup-script
+          configMap:
+            name: mysql-cm-backup
+            items:
+              - key:  mysql-backup-script.sh
+                path: backup-script.sh
+
+        
